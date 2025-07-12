@@ -1,68 +1,78 @@
 using namespace std;
 #include <iostream>
 
-class node{
-  public:
-  int data;
-  node* next;
-  node(int x) {
-      data=x;
-      next=NULL;
-  }
+// Node class representing each element of the linked list
+class node {
+public:
+    int data;       // stores the data
+    node* next;     // pointer to the next node
+
+    node(int x) {   // constructor to initialize a new node
+        data = x;
+        next = NULL;
+    }
 };
 
+// List class to manage the queue using linked list
 class list {
-    private:
-    node* head;
-    node* tail;
-    public:
-    list(){
-        head=NULL;
-        tail=NULL;
+private:
+    node* head; // points to the front of the queue
+    node* tail; // points to the end of the queue
+
+public:
+    // Constructor initializes an empty list
+    list() {
+        head = NULL;
+        tail = NULL;
     }
-    void enqueue(int x){
-        if (head==NULL){
-            node* temp = new node(x);
-            head=temp;
-            tail=head;
+
+    // Adds a new node at the end (enqueue operation)
+    void enqueue(int x) {
+        node* temp = new node(x); // create new node
+        if (head == NULL) {
+            head = temp;
+            tail = head;
         } else {
-            node* temp= new node(x);
-            tail->next = temp; // tailnext points to temp
-            tail = temp; //temp becomes tail
+            tail->next = temp; // link current tail to new node
+            tail = temp;       // update tail
         }
     }
+
+    // Removes node from the front (dequeue operation)
     void dequeue() {
-        if (head==NULL) {
-            cout<<"nothing to delete here"<<endl;
+        if (head == NULL) {
+            cout << "nothing to delete here" << endl;
         } else {
-            node* temp3;
-            temp3=head->next;
-            delete head;
-            head = temp3;
+            node* temp3 = head->next;
+            delete head;       // delete front node
+            head = temp3;      // update head to next node
         }
     }
+
+    // Displays all nodes in the queue
     void display() {
-        if (head==NULL) {
-            cout<<"nothing to display"<<endl;
+        if (head == NULL) {
+            cout << "nothing to display" << endl;
         } else {
             node* temp2 = head;
-            while(temp2!=NULL){
-                cout<<temp2->data<<" -> ";
-                temp2=temp2->next;
+            while (temp2 != NULL) {
+                cout << temp2->data << " -> ";
+                temp2 = temp2->next;
             }
-            cout<<"NULL";
+            cout << "NULL";
         }
     }
 };
 
+// Main function to demonstrate the queue
 int main() {
     list l;
-    cout<<"QUEUE LIST"<<endl;
-    l.enqueue(23);
-    l.enqueue(43);
-    l.enqueue(11);
-    l.dequeue();
-    l.display();
-    
+    cout << "QUEUE LIST" << endl;
+    l.enqueue(23);   // Add 23
+    l.enqueue(43);   // Add 43
+    l.enqueue(11);   // Add 11
+    l.dequeue();     // Remove front (23)
+    l.display();     // Should display: 43 -> 11 -> NULL
+
     return 0;
 }
