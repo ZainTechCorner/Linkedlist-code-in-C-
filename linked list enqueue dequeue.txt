@@ -1,0 +1,68 @@
+using namespace std;
+#include <iostream>
+
+class node{
+  public:
+  int data;
+  node* next;
+  node(int x) {
+      data=x;
+      next=NULL;
+  }
+};
+
+class list {
+    private:
+    node* head;
+    node* tail;
+    public:
+    list(){
+        head=NULL;
+        tail=NULL;
+    }
+    void enqueue(int x){
+        if (head==NULL){
+            node* temp = new node(x);
+            head=temp;
+            tail=head;
+        } else {
+            node* temp= new node(x);
+            tail->next = temp; // tailnext points to temp
+            tail = temp; //temp becomes tail
+        }
+    }
+    void dequeue() {
+        if (head==NULL) {
+            cout<<"nothing to delete here"<<endl;
+        } else {
+            node* temp3;
+            temp3=head->next;
+            delete head;
+            head = temp3;
+        }
+    }
+    void display() {
+        if (head==NULL) {
+            cout<<"nothing to display"<<endl;
+        } else {
+            node* temp2 = head;
+            while(temp2!=NULL){
+                cout<<temp2->data<<" -> ";
+                temp2=temp2->next;
+            }
+            cout<<"NULL";
+        }
+    }
+};
+
+int main() {
+    list l;
+    cout<<"QUEUE LIST"<<endl;
+    l.enqueue(23);
+    l.enqueue(43);
+    l.enqueue(11);
+    l.dequeue();
+    l.display();
+    
+    return 0;
+}
